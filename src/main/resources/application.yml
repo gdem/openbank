@@ -1,0 +1,88 @@
+spring:
+  main: 
+    banner-mode: "off"
+  application:
+    name: @project.artifactId@
+    description:  @project.description@
+  jpa: 
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      namingStrategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console: 
+      enabled: true 
+      path: /h2-console
+      settings.web-allow-others: true
+  datasource: 
+    initialize: true
+    platform: h2
+    sqlScriptEncoding: UTF-8
+    url: jdbc:h2:mem:openbank;DB_CLOSE_DELAY=- 1;DB_CLOSE_ON_EXIT=FALSE;mode=MySQL
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+    dbcp2: 
+      initialSize: 5
+      maxTotal: 55
+      maxIdle: 21
+      minIdle: 13
+      timeBetweenEvictionRunsMillis: 34000
+      minEvictableIdleTimeMillis: 55000
+      validationQuery: SELECT 1
+      validationQueryTimeout: 34
+      testOnBorrow: true
+      removeAbandoned: true
+      removeAbandonedTimeout: 233
+      logAbandoned: true
+  jackson: 
+    default-property-inclusion: non_absent
+    serialization.write_enums_using_to_string: true
+    serialization.indent_output: true
+          
+management:
+  endpoints.web.base-path: /management/
+
+server: 
+  port: 8080
+  context-path: /
+  use-forward-headers: true
+  maxHttpHeaderSize: 131072
+
+springfox.documentation.swagger: 
+  v1.path: /api-v1 
+  v2.path: /api
+
+swagger:
+  title: @project.name@
+  description: @project.description@
+  version:  @project.version@
+  license: Intern
+  licenseUrl: 
+  termOfServiceUrl: 
+  contact:
+    name: Gökhan Demirkyik
+    email: goekhan.demirkiyik@raiffeisen.ch
+    url: http://github.com/gdem/hackandlead
+
+logging:
+  pattern:
+    console: '%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n'
+  level:
+    ROOT: INFO
+    ch.raiffeisen.openbank: DEBUG
+
+---
+    
+spring:
+  profiles: openshift
+
+server:
+  port: 8080       
+  tomcat:
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto   
