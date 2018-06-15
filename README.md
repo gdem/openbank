@@ -2,6 +2,9 @@
 
 An open source RESTful API platform for banks that supports accounts, transactions, transfers (payments), etc.
 
+## Documentation
+[Openbanking Developer Zone](https://openbanking.atlassian.net/wiki/spaces/DZ/overview)
+
 ## Requirements
 
 For building and running the application you need:
